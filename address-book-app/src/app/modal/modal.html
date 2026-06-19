@@ -1,1 +1,56 @@
-<p>modal works!</p>
+<dx-validation-group #validationGroup>
+    <div style="padding: 10px;">
+      <div style="margin-bottom: 10px;">
+        <label>Name</label>
+        <dx-text-box [(value)]="formData.name" [readOnly]="!isEditing">
+          <dx-validator><dxi-validation-rule type="required"></dxi-validation-rule></dx-validator>
+        </dx-text-box>
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label>Email</label>
+        <dx-text-box [(value)]="formData.email" [readOnly]="!isEditing">
+          <dx-validator><dxi-validation-rule type="email"></dxi-validation-rule></dx-validator>
+        </dx-text-box>
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label>Phone</label>
+        <dx-text-box [(value)]="formData.phone" [readOnly]="!isEditing">
+          <dx-validator>
+            <dxi-validation-rule type="pattern" pattern="^[0-9+ -]+$" message="Cannot contain letters"></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label>Street</label>
+        <dx-text-box [(value)]="formData.address.street" [readOnly]="!isEditing"></dx-text-box>
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label>State</label>
+        <dx-select-box [items]="stateList" [(value)]="formData.address.state" [readOnly]="!isEditing"></dx-select-box>
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label>Postcode</label>
+        <dx-text-box [(value)]="formData.address.postcode" [readOnly]="!isEditing">
+          <dx-validator>
+            <dxi-validation-rule type="pattern" pattern="^\d+$" message="Numbers only"></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
+      </div>
+  
+      <div style="margin-bottom: 20px;">
+        <label>Description</label>
+        <dx-text-box [(value)]="formData.description" [readOnly]="!isEditing"></dx-text-box>
+      </div>
+  
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <dx-button *ngIf="!isEditing" text="Edit" type="default" (onClick)="enableEditing()"></dx-button>
+        <dx-button *ngIf="isEditing" [text]="isNew ? 'Create' : 'Save'" type="success" (onClick)="onSaveClick()"></dx-button>
+        <dx-button text="Cancel" type="normal" (onClick)="onCancelClick()"></dx-button>
+      </div>
+    </div>
+  </dx-validation-group>
